@@ -70,13 +70,37 @@ public/               # Static assets
     - Recommended: Deploy on [Vercel](https://vercel.com/) for seamless Next.js hosting.
     - Alternatively, deploy the `.next` build output on any Node.js server.
 
-### Environment Variables
+### Git Hooks & Commit Message Linting
 
-Create a `.env` file in the root for any required environment variables (API URLs, secrets, etc.). Example:
+This project uses [Husky](https://typicode.github.io/husky/) to enforce code quality and commit message standards:
 
-```
-NEXT_PUBLIC_API_URL=https://api.example.com
-```
+- **Pre-commit & commit-msg hooks:**
+    - On commit, Husky runs lint-staged, all Jest tests, and commitlint to ensure only well-formatted, tested, and conventionally named commits are allowed.
+    - The `.husky/commit-msg` script:
+
+        ```sh
+        npx lint-staged && npx jest && npx --no -- commitlint --edit $1 --config commitlint.config.mjs
+        ```
+
+        - Runs lint-staged (auto-fixes and lints staged files)
+        - Runs all Jest tests
+        - Checks commit message format using commitlint
+
+- **Commitlint:**
+    - Enforces [Conventional Commits](https://www.conventionalcommits.org/) with a max header length of 140 characters.
+    - Ignores messages starting with `chore(release):`.
+    - See `commitlint.config.mjs`:
+        ```js
+        export default {
+            extends: ["@commitlint/config-conventional"],
+            rules: {
+                "header-max-length": [2, "always", 140],
+            },
+            ignores: [(message) => message.startsWith("chore(release):")],
+        };
+        ```
+
+---
 
 ### Testing
 

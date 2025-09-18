@@ -56,7 +56,7 @@ export default function AbsenceOverview() {
     return (
         <section className="p-4 flex flex-col gap-y-4 *:w-full">
             <div className="container">
-                <h1 className="text-2xl font-bold text-sky-600">Employee Absence Overview</h1>
+                <h1 className="text-2xl mb-4 font-bold text-sky-600">Employee Absence Overview</h1>
 
                 <EmployeesTable columns={columns} queryData={data} />
             </div>

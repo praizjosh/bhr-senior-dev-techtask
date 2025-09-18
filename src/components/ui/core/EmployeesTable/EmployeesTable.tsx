@@ -7,15 +7,26 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { ArrowDownUp } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 
 import Paginator from "@/components/ui/core/Paginator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ABSENCE_DATA } from "@/lib/api/defaultData";
 import { AbsenceType } from "@/lib/types/absence";
 import { cn } from "@/lib/utils";
+
+function getSortIcon(sortState: string | false): ReactNode | null {
+    switch (sortState) {
+        case "asc":
+            return <ArrowUp className="size-4" />;
+        case "desc":
+            return <ArrowDown className="size-4" />;
+        default:
+            return <ArrowUpDown className="opacity-50 size-4" />;
+    }
+}
 
 type EmployeesTableProps = {
     queryData?: AbsenceType[];
@@ -49,13 +60,25 @@ export default function EmployeesTable({ queryData, columns }: EmployeesTablePro
                                             ? null
                                             : flexRender(header.column.columnDef.header, header.getContext())}
 
-                                        <ArrowDownUp
-                                            className={cn("size-3.5", {
+                                        <button
+                                            className={cn("w-auto", {
                                                 "cursor-pointer select-none": header.column.getCanSort(),
                                                 "invisible cursor-default": !header.column.getCanSort(),
                                             })}
                                             onClick={header.column.getToggleSortingHandler()}
-                                        />
+                                            title={
+                                                header.column.getCanSort()
+                                                    ? header.column.getNextSortingOrder() === "asc"
+                                                        ? "Sort ascending"
+                                                        : header.column.getNextSortingOrder() === "desc"
+                                                          ? "Sort descending"
+                                                          : "Clear sort"
+                                                    : undefined
+                                            }
+                                            type="button"
+                                        >
+                                            {getSortIcon(header.column.getIsSorted())}
+                                        </button>
                                     </div>
                                 </TableHead>
                             ))}
