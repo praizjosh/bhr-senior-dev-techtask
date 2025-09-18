@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import AbsenceCard from "@/components/ui/core/AbsenceCard/AbsenceCard";
 
-const SingleAbsence = async ({ params }: { params: { id: string } }) => {
+const SingleAbsence = async ({ params }: { params: Promise<{ id: string }> }) => {
     const Params = await params;
     const { id } = Params;
 
