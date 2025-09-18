@@ -25,7 +25,11 @@ export function transformCamelCaseToSpaces(str: string): string {
 
 export function transformMixedCaseToSpaces(str: string): string {
     return str
-        .replace(/\./g, " ")
+        .replace(/[._]/g, " ")
         .replace(/([a-z])([A-Z])/g, "$1 $2")
         .toLowerCase();
+}
+
+export function isConflictValue(value: unknown): boolean {
+    return value === true || value === "true";
 }

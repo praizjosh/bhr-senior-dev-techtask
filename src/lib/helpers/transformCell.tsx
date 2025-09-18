@@ -1,11 +1,7 @@
 import { CellConfigType, CellInfoType } from "@/lib/types/ts-table";
-import { cn, formatDate } from "@/lib/utils";
+import { cn, formatDate, isConflictValue, transformMixedCaseToSpaces } from "@/lib/utils";
 
-const ABSENCE_TYPE_CLASSES: Record<string, string> = {
-    SICKNESS: "bg-red-100 text-red-700",
-    ANNUAL_LEAVE: "bg-purple-100 text-purple-800",
-    DEFAULT: "bg-sky-100 text-sky-600",
-};
+import { ABSENCE_TYPE_CLASSES } from "../constants";
 
 const createCellRenderer = (config: CellConfigType) => {
     const CellRenderer = (info: CellInfoType) => {
@@ -31,6 +27,18 @@ const createCellRenderer = (config: CellConfigType) => {
             case "date":
                 return <span className={`text-sm ${config.className ?? ""}`}>{formatDate(String(value))}</span>;
 
+            case "conflicts": {
+                return (
+                    <span
+                        className={cn("px-2 py-1 capitalize rounded-full text-xs font-medium", {
+                            "bg-red-100 text-red-600": isConflictValue(value),
+                        })}
+                    >
+                        {isConflictValue(value) ? "Yes" : "No"}
+                    </span>
+                );
+            }
+
             case "absenceType":
                 return (
                     <span
@@ -39,7 +47,7 @@ const createCellRenderer = (config: CellConfigType) => {
                             ABSENCE_TYPE_CLASSES[String(value)] ?? ABSENCE_TYPE_CLASSES.DEFAULT,
                         )}
                     >
-                        {String(value).replace(/_/g, " ").toLocaleLowerCase()}
+                        {transformMixedCaseToSpaces(String(value))}
                     </span>
                 );
 
@@ -71,6 +79,7 @@ const columnConfigs: Record<string, CellConfigType> = {
     "employee.id": { type: "employeeId" },
     "employee.firstName": { type: "name" },
     "employee.lastName": { type: "name" },
+    conflicts: { type: "conflicts" },
     days: {
         type: "default",
         format: (value) => `${value} day${Number(value) !== 1 ? "s" : ""}`,

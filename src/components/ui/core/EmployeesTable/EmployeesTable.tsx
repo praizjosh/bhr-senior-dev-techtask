@@ -12,9 +12,8 @@ import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 import Paginator from "@/components/ui/core/Paginator";
-import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { personObj } from "@/lib/api/defaultData";
+import { ABSENCE_DATA } from "@/lib/api/defaultData";
 import { AbsenceType } from "@/lib/types/absence";
 import { cn } from "@/lib/utils";
 
@@ -25,7 +24,7 @@ type EmployeesTableProps = {
 
 export default function EmployeesTable({ queryData, columns }: EmployeesTableProps) {
     const router = useRouter();
-    const fallbackData = useMemo(() => personObj, []);
+    const fallbackData = useMemo(() => ABSENCE_DATA, []);
     const defaultColumns = useMemo(() => columns, [columns]);
 
     const table = useReactTable<AbsenceType>({
@@ -38,13 +37,7 @@ export default function EmployeesTable({ queryData, columns }: EmployeesTablePro
     });
 
     return (
-        <div className="rounded-lg p-2 overflow-hidden space-y-4">
-            <div className="relative">
-                <Input className="p-2 border border-gray-300 rounded" placeholder="Search absences..." type="text" />
-
-                <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">🔍</span>
-            </div>
-
+        <div className="rounded-lg p-2 overflow-hidden">
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -74,11 +67,8 @@ export default function EmployeesTable({ queryData, columns }: EmployeesTablePro
                     {table.getRowModel().rows.map((row) => (
                         <TableRow
                             key={row.id}
-                            className="cursor-pointer hover:bg-gray-400/25"
-                            onClick={() => {
-                                console.log(`Row ID: ${JSON.stringify(row.original.employee.id, null, 2)}`);
-                                router.push(`/absences/${row.original.employee.id}`);
-                            }}
+                            className="cursor-pointer hover:bg-sky-300/25"
+                            onClick={() => router.push(`/absences/${row.original.employee.id}`)}
                         >
                             {row.getVisibleCells().map((cell) => (
                                 <TableCell key={cell.id} className="border text-start">

@@ -31,6 +31,6 @@ export default async function getAbsences(): Promise<AbsenceType[]> {
 
         return absencesWithConflicts;
     } catch (error) {
-        throw new Error(`An error occurred while fetching absences: ${error}`);
+        throw new Error(`${error}`);
     }
 }

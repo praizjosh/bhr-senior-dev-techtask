@@ -13,11 +13,25 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
 }
 
 function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
-    return <thead className={cn("[&_tr]:border-b", className)} data-slot="table-header" {...props} />;
+    return (
+        <thead
+            className={cn("[&_tr]:border-b", className)}
+            data-slot="table-header"
+            data-testid="table-header"
+            {...props}
+        />
+    );
 }
 
 function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
-    return <tbody className={cn("[&_tr:last-child]:border-0", className)} data-slot="table-body" {...props} />;
+    return (
+        <tbody
+            className={cn("[&_tr:last-child]:border-0", className)}
+            data-slot="table-body"
+            data-testid="table-body"
+            {...props}
+        />
+    );
 }
 
 function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
@@ -35,6 +49,7 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
         <tr
             className={cn("hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors", className)}
             data-slot="table-row"
+            data-testid="table-row"
             {...props}
         />
     );
@@ -48,6 +63,7 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
                 className,
             )}
             data-slot="table-head"
+            data-testid="table-head"
             {...props}
         />
     );
@@ -61,6 +77,7 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
                 className,
             )}
             data-slot="table-cell"
+            data-testid="table-row"
             {...props}
         />
     );
@@ -68,7 +85,12 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
 
 function TableCaption({ className, ...props }: React.ComponentProps<"caption">) {
     return (
-        <caption className={cn("text-muted-foreground mt-4 text-sm", className)} data-slot="table-caption" {...props} />
+        <caption
+            className={cn("text-muted-foreground mt-4 text-sm", className)}
+            data-slot="table-caption"
+            data-testid="table-caption"
+            {...props}
+        />
     );
 }
 

@@ -1,7 +1,7 @@
 import { AbsenceType } from "@/lib/types/absence";
 import { ColumnHeaderType } from "@/lib/types/ts-table";
 
-const personObj: AbsenceType[] = [
+const ABSENCE_DATA: AbsenceType[] = [
     {
         id: 0,
         startDate: "2022-05-28T04:39:06.470Z",
@@ -38,4 +38,18 @@ const COLUMN_HEADER_LIST: ColumnHeaderType[] = [
     "approved",
 ];
 
-export { COLUMN_HEADER_LIST, personObj };
+const MOCK_ABSENCES: AbsenceType[] = Array.from({ length: 20 }, (_, index) => ({
+    id: index + 1,
+    startDate: "12/12/2023",
+    days: 1,
+    absenceType: "SICKNESS",
+    approved: true,
+    conflicts: false,
+    employee: {
+        firstName: `FirstName ${index}`,
+        lastName: `LastName ${index}`,
+        id: `id-${index}`,
+    },
+}));
+
+export { ABSENCE_DATA, COLUMN_HEADER_LIST, MOCK_ABSENCES };

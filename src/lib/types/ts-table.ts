@@ -1,15 +1,14 @@
-import { AbsenceType } from "./person";
+import { AbsenceType } from "./absence";
 
 // TColumnHeader
 export type ColumnHeaderType = keyof AbsenceType | "employee.firstName" | "employee.lastName" | "employee.id";
 
 export type CellConfigType = {
-    type: "id" | "approved" | "date" | "absenceType" | "employeeId" | "name" | "default";
+    type: "id" | "approved" | "date" | "absenceType" | "employeeId" | "name" | "default" | "conflicts";
     className?: string;
     format?: (value: string) => string;
 };
 
-// Updated transformCell function
 // Define interfaces for better type safety
 export interface CellInfoType<T = unknown> {
     getValue: () => T;

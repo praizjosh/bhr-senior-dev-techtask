@@ -1,4 +1,99 @@
-# bhr-senior-dev-techtaskThis is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# bhr-senior-dev-techtask
+
+## Technical Documentation
+
+### Overview
+
+This project is a full-stack web application built with [Next.js](https://nextjs.org), TypeScript, and React. It features a modular architecture, robust state management, and a modern UI using Tailwind CSS. The application is designed for scalability, maintainability, and ease of deployment.
+
+### Features
+
+- Employee absence management and overview
+- Paginated, filterable, and sortable tables
+- API integration and data fetching with React Query
+- Unit and integration tests with Jest and Testing Library
+- Strict linting and formatting for code quality
+
+### Project Structure
+
+```
+src/
+  app/                # Next.js app directory (routing, pages, layout)
+  components/         # Reusable UI and core components
+  lib/                # Utilities, constants, API logic
+  types/              # TypeScript type definitions
+  ...
+public/               # Static assets
+```
+
+### Main Technologies
+
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS
+- React Query
+- Jest & Testing Library
+
+### Setup & Development
+
+1. **Install dependencies:**
+    ```bash
+    npm install
+    # or yarn install
+    ```
+2. **Run development server:**
+    ```bash
+    npm run dev
+    ```
+3. **Run tests:**
+    ```bash
+    npm test
+    ```
+4. **Lint & format:**
+    ```bash
+    npm run lint
+    npm run lint:fix
+    ```
+
+### Build & Deployment
+
+1. **Build for production:**
+    ```bash
+    npm run build
+    ```
+2. **Start production server:**
+    ```bash
+    npm start
+    ```
+3. **Deploy:**
+    - Recommended: Deploy on [Vercel](https://vercel.com/) for seamless Next.js hosting.
+    - Alternatively, deploy the `.next` build output on any Node.js server.
+
+### Environment Variables
+
+Create a `.env` file in the root for any required environment variables (API URLs, secrets, etc.). Example:
+
+```
+NEXT_PUBLIC_API_URL=https://api.example.com
+```
+
+### Testing
+
+- Unit and integration tests are located in `src/lib/api/__tests__/` and alongside components.
+- Run all tests with `npm test`.
+- Coverage reports are generated in the `coverage/` directory.
+
+### Linting & Formatting
+
+- ESLint and Prettier are configured for code quality.
+- Run `npm run lint` and `npm run lint:fix` to check and fix issues.
+
+### Folder Aliases
+
+- Use `@/` as an alias for the `src/` directory (see `tsconfig.json`).
+
+---
 
 ## Getting Started
 
@@ -19,18 +114,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

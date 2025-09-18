@@ -1,9 +1,17 @@
-import AbsenceCard from "@/components/ui/core/AbsenceCard";
+import { notFound } from "next/navigation";
 
-const SingleAbsence = ({ params }: { params: { id: string } }) => {
+import AbsenceCard from "@/components/ui/core/AbsenceCard/AbsenceCard";
+
+const SingleAbsence = async ({ params }: { params: { id: string } }) => {
+    const Params = await params;
+    const { id } = Params;
+
+    if (!id) {
+        return notFound();
+    }
     return (
         <main className="container mx-auto p-4">
-            <AbsenceCard id={params.id} />
+            <AbsenceCard employeeId={id} />
         </main>
     );
 };

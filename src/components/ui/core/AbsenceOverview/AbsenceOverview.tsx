@@ -1,19 +1,15 @@
 "use client";
 
-import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo } from "react";
 
-import EmployeesTable from "@/components/ui/core/EmployeesTable";
+import EmployeesTable from "@/components/ui/core/EmployeesTable/EmployeesTable";
+import LoadingSpinner from "@/components/ui/core/LoadingSpinner";
 import { COLUMN_HEADER_LIST } from "@/lib/api/defaultData";
+import { columnHelper, NON_RESIZABLE_COLUMNS, NON_SORTABLE_COLUMNS } from "@/lib/constants";
 import transformCell from "@/lib/helpers/transformCell";
 import useAbsence from "@/lib/hooks/useAbsence";
 import { AbsenceType } from "@/lib/types/absence";
 import { cn, transformMixedCaseToSpaces } from "@/lib/utils";
-
-// Define constants outside component to prevent recreation
-const columnHelper = createColumnHelper<AbsenceType>();
-const NON_SORTABLE_COLUMNS = ["no", "id", "newSeoTitle", "newSeoDescription"];
-const NON_RESIZABLE_COLUMNS = ["no", "id", "lastUpdated"];
 
 export default function AbsenceOverview() {
     const { data, isLoading, isError, error } = useAbsence();
@@ -21,31 +17,36 @@ export default function AbsenceOverview() {
     const columns = useMemo(
         () =>
             COLUMN_HEADER_LIST.map((columnName) => {
-                return columnHelper.accessor(columnName, {
-                    id: columnName,
-                    size: columnName === "id" ? 50 : 220,
-                    // minSize: getMinColumnSize(columnName),
+                const colNameStr = String(columnName);
+                return columnHelper.accessor(colNameStr as keyof AbsenceType, {
+                    id: colNameStr,
                     maxSize: 1200,
                     cell: (info) => transformCell(info),
                     header: () => (
                         <span
                             className={cn("capitalize", {
-                                uppercase: columnName === "id",
+                                uppercase: colNameStr === "id",
                             })}
                         >
-                            {transformMixedCaseToSpaces(columnName)}
+                            {transformMixedCaseToSpaces(colNameStr)}
                         </span>
                     ),
                     sortUndefined: "last", //force undefined values to the end
-                    enableSorting: !NON_SORTABLE_COLUMNS.includes(columnName), //disable sorting for specific columns
-                    enableResizing: !NON_RESIZABLE_COLUMNS.includes(columnName), //disable resizing for specific columns
+                    enableSorting: !NON_SORTABLE_COLUMNS.includes(colNameStr), //disable sorting for specific columns
+                    enableResizing: !NON_RESIZABLE_COLUMNS.includes(colNameStr), //disable resizing for specific columns
                 });
             }),
-        [], // Remove updateData and setUpdateData from dependencies
+        [],
     );
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <section className="p-4 flex flex-col gap-y-4 *:w-full h-screen">
+                <div className="container size-full flex items-center justify-center">
+                    <LoadingSpinner className="size-24" data-testid="loading-spinner" />
+                </div>
+            </section>
+        );
     }
 
     if (isError) {
@@ -55,7 +56,7 @@ export default function AbsenceOverview() {
     return (
         <section className="p-4 flex flex-col gap-y-4 *:w-full">
             <div className="container">
-                <h1 className="text-2xl font-bold text-sky-500">Absence Overview</h1>
+                <h1 className="text-2xl font-bold text-sky-600">Employee Absence Overview</h1>
 
                 <EmployeesTable columns={columns} queryData={data} />
             </div>
