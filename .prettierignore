@@ -6,3 +6,4 @@ coverage
 node_modules
 tests
 *.config.js
+.open-next

@@ -13,9 +13,6 @@ on:
       - "public/**"
       - "src/**"
 
-    paths-ignore:
-      - "**/README.md"
-
 jobs:
   build-test-and-deploy:
     runs-on: ubuntu-latest
