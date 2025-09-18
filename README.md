@@ -1,10 +1,14 @@
-# bhr-senior-dev-techtask
+# BrightHR Senior Frontend Developer Techtask
 
 ## Technical Documentation
 
 ### Overview
 
 This project is a full-stack web application built with [Next.js](https://nextjs.org), TypeScript, and React. It features a modular architecture, robust state management, and a modern UI using Tailwind CSS. The application is designed for scalability, maintainability, and ease of deployment.
+
+## Live Url (Deployed to Cloudflare)
+
+[https://employee-absence-app.praizjosh.workers.dev/](https://employee-absence-app.praizjosh.workers.dev/)
 
 ### Features
 
@@ -34,13 +38,13 @@ public/               # Static assets
 - Tailwind CSS
 - React Query
 - Jest & Testing Library
+- Cloudflare Worker
 
 ### Setup & Development
 
 1. **Install dependencies:**
     ```bash
     npm install
-    # or yarn install
     ```
 2. **Run development server:**
     ```bash

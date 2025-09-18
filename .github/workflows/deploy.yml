@@ -1,0 +1,45 @@
+name: Build,CI & Deploy App
+
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main, next]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+    paths:
+      - "package.json"
+      - "public/**"
+      - "src/**"
+
+    paths-ignore:
+      - "**/README.md"
+
+jobs:
+  build-test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      # Setup .npmrc file to publish to npm
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy project
+        run: npm run deploy
+      
