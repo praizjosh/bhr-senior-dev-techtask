@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 
 import AbsenceCardSkeleton from "@/components/ui/skeletons/AbsenceCardSkeleton";
 import config from "@/lib/config";
 import { ABSENCE_TYPE_CLASSES } from "@/lib/constants";
 import useAbsence from "@/lib/hooks/useAbsence";
 import { AbsenceType } from "@/lib/types/absence";
-import { cn, formatDate, isConflictValue, transformMixedCaseToSpaces } from "@/lib/utils";
+import { cn, formatDate, getEndDate, isConflictValue, transformMixedCaseToSpaces } from "@/lib/utils";
 
 type AbsenceCardProps = {
     employeeId: string;
@@ -149,19 +149,41 @@ export default function AbsenceCard({ employeeId }: AbsenceCardProps) {
                                 className="flex *:w-full gap-y-2 flex-col border-2 p-4 mb-4 rounded bg-gray-50 border-sky-200"
                                 tabIndex={i}
                             >
-                                {Object.entries(absence)
-                                    .filter(([key]) => key !== "employee" && key !== "id")
-                                    .map(([key, value]) => {
-                                        return (
+                                {/* Render all fields except employee and id, and insert endDate after startDate */}
+                                {(() => {
+                                    const entries = Object.entries(absence).filter(
+                                        ([key]) => key !== "employee" && key !== "id",
+                                    );
+                                    const result: ReactNode[] = [];
+                                    entries.forEach(([key, value]) => {
+                                        result.push(
                                             <div key={key} className="flex gap-4 justify-between">
                                                 <span className="font-semibold capitalize">
                                                     {transformMixedCaseToSpaces(key)}:
                                                 </span>
-
                                                 <span className="capitalize">{renderAbsenceValue(key, value)}</span>
-                                            </div>
+                                            </div>,
                                         );
-                                    })}
+                                        if (
+                                            key === "startDate" &&
+                                            absence.startDate &&
+                                            typeof absence.days === "number"
+                                        ) {
+                                            result.push(
+                                                <div key="endDate" className="flex gap-4 justify-between">
+                                                    <span className="font-semibold capitalize">End date:</span>
+                                                    <span className="capitalize">
+                                                        {renderAbsenceValue(
+                                                            "endDate",
+                                                            getEndDate(absence.startDate, absence.days),
+                                                        )}
+                                                    </span>
+                                                </div>,
+                                            );
+                                        }
+                                    });
+                                    return result;
+                                })()}
                             </div>
                         ))}
                 </div>

@@ -14,7 +14,7 @@ This project is a full-stack web application built with [Next.js](https://nextjs
 
 - Employee absence management and overview
 - Flags employee with frequent absence
-- Paginated, filterable, and sortable tables
+- Paginated, filterable, and sortable tables via Tanstack Table
 - API integration and data fetching with React Query
 - Unit and integration tests with Jest and Testing Library
 - Strict linting and formatting for code quality
@@ -38,6 +38,7 @@ public/               # Static assets
 - TypeScript
 - Tailwind CSS
 - React Query
+- Tanstack Table
 - Jest & Testing Library
 - Cloudflare Worker
 - GitGub Workflow
@@ -107,7 +108,7 @@ This project uses [Husky](https://typicode.github.io/husky/) to enforce code qua
 
 ### Testing
 
-- Unit and integration tests are located in `src/lib/api/__tests__/` and alongside components.
+- Unit and integration tests are located in alongside components/hooks.
 - Run all tests with `npm test`.
 - Coverage reports are generated in the `coverage/` directory.
 

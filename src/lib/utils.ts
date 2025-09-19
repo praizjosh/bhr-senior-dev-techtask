@@ -16,6 +16,18 @@ export function formatDate(dateString: string): string {
     });
 }
 
+/**
+ * Returns an ISO string for the end date, given a start date string and number of days to add.
+ * @param startDate ISO date string
+ * @param days Number of days to add
+ * @returns ISO string for the end date
+ */
+export function getEndDate(startDate: string, days: number): string {
+    const date = new Date(startDate);
+    date.setDate(date.getDate() + days);
+    return date.toISOString();
+}
+
 export function transformCamelCaseToSpaces(str: string): string {
     // Handles nested titles like "employee.firstName"
     const parts = str.split(".");
