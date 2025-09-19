@@ -8,7 +8,7 @@ type PaginatorProps = {
 
 export default function Paginator({ methods }: PaginatorProps) {
     return (
-        <div className="flex items-center gap-2 mt-5">
+        <div className="flex items-center gap-2 mt-5 w-full flex-wrap">
             <button
                 className="border rounded py-1 px-2 hover:text-sky-500 hover:cursor-pointer"
                 disabled={!methods.getCanPreviousPage()}

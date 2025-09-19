@@ -13,6 +13,7 @@ This project is a full-stack web application built with [Next.js](https://nextjs
 ### Features
 
 - Employee absence management and overview
+- Flags employee with frequent absence
 - Paginated, filterable, and sortable tables
 - API integration and data fetching with React Query
 - Unit and integration tests with Jest and Testing Library
@@ -39,6 +40,7 @@ public/               # Static assets
 - React Query
 - Jest & Testing Library
 - Cloudflare Worker
+- GitGub Workflow
 
 ### Setup & Development
 
@@ -70,9 +72,6 @@ public/               # Static assets
     ```bash
     npm start
     ```
-3. **Deploy:**
-    - Recommended: Deploy on [Vercel](https://vercel.com/) for seamless Next.js hosting.
-    - Alternatively, deploy the `.next` build output on any Node.js server.
 
 ### Git Hooks & Commit Message Linting
 
@@ -123,22 +122,14 @@ This project uses [Husky](https://typicode.github.io/husky/) to enforce code qua
 
 ---
 
-## Getting Started
+### Further Improvements
 
-First, run the development server:
+Would love to add the following features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Add search functionality to table to search by keywords eg. Name, absence type, approval status, etc
+- Show sidebar containing other employees with conflict within single employee view
+- Automate direct cloudflare CI deployment with GitHub workflow
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

@@ -74,7 +74,20 @@ export default function AbsenceCard({ employeeId }: AbsenceCardProps) {
     if (isLoading) {
         return (
             <div className="container mx-auto p-4 flex size-full flex-col gap-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid animate-pulse">
+                    <div aria-label="Back to Absence Overview" className="inline-flex items-center gap-1.5">
+                        <span className="size-5 rounded-full bg-slate-300" />
+                        <span className="h-4 w-32 bg-slate-300 rounded" />
+                    </div>
+                    <hr className="border my-2 border-slate-200" />
+                    <span className="h-6 w-full md:w-44 bg-slate-300 rounded" />
+                    <div className="mt-2 grid gap-2">
+                        <span className="h-4 w-32 bg-slate-300 rounded" />
+                        <span className="h-4 w-52 bg-slate-300 rounded" />
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     {[...Array(4)].map((_, i) => (
                         <AbsenceCardSkeleton key={i} data-testid={`absence-card-skeleton-${i}`} />
                     ))}
@@ -93,7 +106,7 @@ export default function AbsenceCard({ employeeId }: AbsenceCardProps) {
                 <div className="grid">
                     <Link
                         aria-label="Back to Absence Overview"
-                        className="inline-flex items-center hover:text-sky-500"
+                        className="inline-flex items-center hover:text-sky-500 w-fit"
                         href={"/"}
                     >
                         <svg
@@ -128,7 +141,7 @@ export default function AbsenceCard({ employeeId }: AbsenceCardProps) {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     {allEmployeeAbsences.length > 0 &&
                         allEmployeeAbsences.map((absence, i) => (
                             <div

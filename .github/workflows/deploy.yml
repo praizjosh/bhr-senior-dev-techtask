@@ -40,7 +40,7 @@ jobs:
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v4
         with:
-            path: .vercel/output/static
+            path: .next/static
             name: dist
           
   deploy:

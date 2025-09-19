@@ -10,7 +10,7 @@ const SingleAbsence = async ({ params }: { params: Promise<{ id: string }> }) =>
         return notFound();
     }
     return (
-        <main className="container mx-auto p-4">
+        <main className="px-6 lg-px-0 lg:container mx-auto p-4">
             <AbsenceCard employeeId={id} />
         </main>
     );
